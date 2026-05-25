@@ -1,8 +1,7 @@
 <?php
     $pageTitle = 'Contato';    
-    include "componentes/head.php";
-
     $mensagem = "";
+    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $nome = trim($_POST["nome"]);
@@ -44,6 +43,45 @@
         }
     }
     
-    include "componentes/header.php";
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <?php include("componentes/head.php"); ?>
+    <title>Contato</title>
+</head>
+
+<body>
+    <?php include ("componentes/header.php"); ?>
+    <div class="Container">
+        <h1>Contato</h1>
+
+        <?php if (!empty($mensagem)) : ?>
+            <div class="alert alert-info"><?php echo $mensagem; ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+
+        <label>Nome</label>
+        <input type="text" name="nome" required value="<?= $nome ?? '' ?>">
+
+        <label>Email</label>
+        <input type="email" name="email" required value="<?= $email ?? '' ?>">
+
+        <label>Assunto</label>
+        <input type="text" name="assunto" required value="<?= $assunto ?? '' ?>">
+
+        <label>Mensagem</label>
+        <textarea name="mensagem" required><?= $mensagemUsuario ?? '' ?></textarea>
+
+        <button type="submit">Enviar</button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
 
