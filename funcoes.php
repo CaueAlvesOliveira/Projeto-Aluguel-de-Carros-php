@@ -10,4 +10,9 @@
         else return true;
     }
 
+    function validaCamposRecuperarSenha($cpf, $dataNascimento, $novaSenha){
+        if(is_null($cpf) || is_null($dataNascimento) || is_null($novaSenha)) return true;
+        else return false;
+    }
+
 ?>

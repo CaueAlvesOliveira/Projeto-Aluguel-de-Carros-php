@@ -11,6 +11,7 @@
     
     require "./controller/LoginController.php";
     require "./controller/CadastroController.php";
+    require "./controller/RecuperarSenhaController.php";
     require "./controller/LogoutController.php";
     require "./controller/AluguelController.php";
     require "./controller/ContatoController.php";
@@ -23,6 +24,9 @@
     }
     else if($url == 'cadastrar'){
         CadastroController::fazerCadastro();
+    }
+    else if($url == 'recuperar-senha'){
+        RecuperarSenhaController::recuperarSenha();
     }
 
     // DEIXEI COMENTANDO PARA SO MUDAR OS DADOS DEPOIS COM O QUE TEMOS

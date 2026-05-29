@@ -5,6 +5,20 @@
         $pdo->query("INSERT INTO usuarios (id, nome, cpf, data_nascimento, email, telefone, senha) VALUES (null, '$usuario', '$cpf', '$dataNascimento', '$email', '$telefone', '$senha');");
     }
 
+    function recuperarSenha($cpf, $dataNascimento, $novaSenha){
+        global $pdo;
+        $resp = $pdo->query("SELECT * FROM usuarios WHERE cpf='$cpf' AND data_nascimento='$dataNascimento';");
+
+        if($resp->rowCount() > 0){
+            $hash = password_hash($novaSenha, PASSWORD_DEFAULT);
+            $pdo->query("UPDATE usuarios SET senha='$hash' WHERE cpf='$cpf';");
+            return true;
+        } else {
+            echo "Usuário não encontrado";
+        return false;
+    }
+    }
+
     function fazerLogin($usuario, $senha){
 
         global $pdo;

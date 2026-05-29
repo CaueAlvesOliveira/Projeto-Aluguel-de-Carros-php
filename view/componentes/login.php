@@ -7,3 +7,5 @@
 </form>
 
 <p>Não possui conta? <a href="?p=cadastrar">Clique aqui</a></p>
+<p>Esqueceu sua senha? <a href="?p=recuperar-senha">Clique aqui</a></p>
+

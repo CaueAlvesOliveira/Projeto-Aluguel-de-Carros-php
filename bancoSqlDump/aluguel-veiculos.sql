@@ -3,25 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2026 at 08:51 PM
--- Server version: 8.0.43
--- PHP Version: 8.2.12
-
-CREATE DATABASE IF NOT EXISTS `aluguel-veiculos`
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_general_ci;
-
-USE `aluguel-veiculos`;
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-SET NAMES utf8mb4;
-
-DROP USER IF EXISTS 'aluguel_user'@'localhost';
-CREATE USER 'aluguel_user'@'localhost' IDENTIFIED BY 'aluguel123';
-GRANT ALL PRIVILEGES ON `aluguel-veiculos`.* TO 'aluguel_user'@'localhost';
-FLUSH PRIVILEGES;
+-- Tempo de geração: 29/05/2026 às 03:53
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,28 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `aluguel-veiculos`
+-- Banco de dados: `aluguel-veiculos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alugueis`
+-- Estrutura para tabela `alugueis`
 --
 
 CREATE TABLE `alugueis` (
-  `id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  `veiculo_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `veiculo_id` int(11) NOT NULL,
   `data_inicio` date NOT NULL,
   `data_fim` date NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `status` enum('pendente','ativo','finalizado','cancelado') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pendente',
-  `criado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `status` enum('pendente','ativo','finalizado','cancelado') DEFAULT 'pendente',
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `alugueis`
+-- Despejando dados para a tabela `alugueis`
 --
 
 INSERT INTO `alugueis` (`id`, `usuario_id`, `veiculo_id`, `data_inicio`, `data_fim`, `total`, `status`, `criado_em`) VALUES
@@ -68,22 +52,22 @@ INSERT INTO `alugueis` (`id`, `usuario_id`, `veiculo_id`, `data_inicio`, `data_f
 -- --------------------------------------------------------
 
 --
--- Table structure for table `enderecos`
+-- Estrutura para tabela `enderecos`
 --
 
 CREATE TABLE `enderecos` (
-  `id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  `rua` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numero` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `bairro` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `cidade` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `estado` char(2) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `cep` varchar(9) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `rua` varchar(100) DEFAULT NULL,
+  `numero` varchar(10) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `estado` char(2) DEFAULT NULL,
+  `cep` varchar(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `enderecos`
+-- Despejando dados para a tabela `enderecos`
 --
 
 INSERT INTO `enderecos` (`id`, `usuario_id`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `cep`) VALUES
@@ -96,21 +80,21 @@ INSERT INTO `enderecos` (`id`, `usuario_id`, `rua`, `numero`, `bairro`, `cidade`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `noticias`
+-- Estrutura para tabela `noticias`
 --
 
 CREATE TABLE `noticias` (
-  `id` int NOT NULL,
-  `titulo` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  `conteudo` text COLLATE utf8mb4_general_ci NOT NULL,
-  `autor_id` int NOT NULL,
-  `publicado` tinyint(1) DEFAULT '1',
-  `criado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `atualizado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `titulo` varchar(150) NOT NULL,
+  `conteudo` text NOT NULL,
+  `autor_id` int(11) NOT NULL,
+  `publicado` tinyint(1) DEFAULT 1,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `noticias`
+-- Despejando dados para a tabela `noticias`
 --
 
 INSERT INTO `noticias` (`id`, `titulo`, `conteudo`, `autor_id`, `publicado`, `criado_em`, `atualizado_em`) VALUES
@@ -123,20 +107,20 @@ INSERT INTO `noticias` (`id`, `titulo`, `conteudo`, `autor_id`, `publicado`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pagamentos`
+-- Estrutura para tabela `pagamentos`
 --
 
 CREATE TABLE `pagamentos` (
-  `id` int NOT NULL,
-  `aluguel_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `aluguel_id` int(11) NOT NULL,
   `valor` decimal(10,2) NOT NULL,
-  `metodo` enum('cartao','pix','boleto') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('pendente','aprovado','recusado') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pendente',
-  `pago_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `metodo` enum('cartao','pix','boleto') NOT NULL,
+  `status` enum('pendente','aprovado','recusado') DEFAULT 'pendente',
+  `pago_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pagamentos`
+-- Despejando dados para a tabela `pagamentos`
 --
 
 INSERT INTO `pagamentos` (`id`, `aluguel_id`, `valor`, `metodo`, `status`, `pago_em`) VALUES
@@ -149,56 +133,58 @@ INSERT INTO `pagamentos` (`id`, `aluguel_id`, `valor`, `metodo`, `status`, `pago
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
-  `id` int NOT NULL,
-  `nome` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `senha` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `telefone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `cpf` varchar(14) COLLATE utf8mb4_general_ci NOT NULL,
-  `cnh` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `cpf` varchar(14) NOT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `perfil` enum('admin','cliente') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'cliente',
-  `criado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `perfil` enum('admin','cliente') DEFAULT 'cliente',
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `telefone`, `cpf`, `cnh`, `data_nascimento`, `perfil`, `criado_em`) VALUES
-(1, 'Admin Sistema', 'admin@aluguel.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41999990001', '00000000001', '0000001', '1990-01-01', 'admin', '2026-01-01 00:00:00'),
-(2, 'Cauê Silva', 'caue@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41996813503', '09842017468', '2718901', '2006-07-27', 'cliente', '2026-05-21 04:02:45'),
-(3, 'Ana Souza', 'ana@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41988880002', '11122233344', '1234502', '1995-03-15', 'cliente', '2026-02-10 10:00:00'),
-(4, 'Carlos Lima', 'carlos@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41977770003', '22233344455', '2345603', '1988-07-22', 'cliente', '2026-03-05 14:30:00'),
-(5, 'Mariana Costa', 'mariana@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41966660004', '33344455566', '3456704', '2000-11-30', 'cliente', '2026-04-18 09:15:00');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `telefone`, `cpf`, `data_nascimento`, `perfil`, `criado_em`) VALUES
+(1, 'Admin Sistema', 'admin@aluguel.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41999990001', '00000000001', '1990-01-01', 'admin', '2026-01-01 00:00:00'),
+(2, 'Cauê Silva', 'caue@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41996813503', '09842017468', '2006-07-27', 'cliente', '2026-05-21 04:02:45'),
+(3, 'Ana Souza', 'ana@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41988880002', '11122233344', '1995-03-15', 'cliente', '2026-02-10 10:00:00'),
+(4, 'Carlos Lima', 'carlos@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41977770003', '22233344455', '1988-07-22', 'cliente', '2026-03-05 14:30:00'),
+(5, 'Mariana Costa', 'mariana@gmail.com', '$2y$10$mNf/YYYfjDKKWmXbxS6KeuKdJRS7QGZ3XXd8Nnoxik1RUiM1Ltj8C', '41966660004', '33344455566', '2000-11-30', 'cliente', '2026-04-18 09:15:00'),
+(6, 'caue', '', '$2y$10$ilISn6ac7aXEh2aRNitASeGnkJbme1kZeqa5WasfaaDB8Gt2nxmbq', NULL, '', NULL, 'cliente', '2026-05-28 23:08:44'),
+(13, 'jonas', 'jonas@gmail.com', '$2y$10$/P20tNeCbgO2qNZNYHa8OejaTMB6DtUMbEYCbTzjSoWv4f2MXZuoK', NULL, '142', '2006-08-24', 'cliente', '2026-05-29 00:58:28'),
+(15, 'jose', 'caue.alves2707@gmail.com', '$2y$10$1YDd6ffxGAakiRvnmoIr.OZGTmaz8wH5VnPP/SX40IBNusxaO3Hr2', NULL, '12321', '2006-03-27', 'cliente', '2026-05-29 00:58:59');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `veiculos`
+-- Estrutura para tabela `veiculos`
 --
 
 CREATE TABLE `veiculos` (
-  `id` int NOT NULL,
-  `tipo` enum('carro','moto') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'carro',
-  `marca` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `modelo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `ano` int NOT NULL,
-  `cor` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `placa` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `categoria` enum('economico','intermediario','suv','luxo','esportiva','utilitaria') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `tipo` enum('carro','moto') NOT NULL DEFAULT 'carro',
+  `marca` varchar(50) NOT NULL,
+  `modelo` varchar(50) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `cor` varchar(30) DEFAULT NULL,
+  `placa` varchar(10) NOT NULL,
+  `categoria` enum('economico','intermediario','suv','luxo','esportiva','utilitaria') NOT NULL,
   `preco_diaria` decimal(10,2) NOT NULL,
-  `disponivel` tinyint(1) DEFAULT '1',
-  `quilometragem` int DEFAULT '0',
-  `imagem` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `disponivel` tinyint(1) DEFAULT 1,
+  `quilometragem` int(11) DEFAULT 0,
+  `imagem` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `veiculos`
+-- Despejando dados para a tabela `veiculos`
 --
 
 INSERT INTO `veiculos` (`id`, `tipo`, `marca`, `modelo`, `ano`, `cor`, `placa`, `categoria`, `preco_diaria`, `disponivel`, `quilometragem`, `imagem`) VALUES
@@ -214,11 +200,11 @@ INSERT INTO `veiculos` (`id`, `tipo`, `marca`, `modelo`, `ano`, `cor`, `placa`, 
 (10, 'moto', 'Kawasaki', 'Ninja 400', 2023, 'Verde', 'HIJ1N01', 'esportiva', 140.00, 1, 1500, 'ninja400.jpg');
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `alugueis`
+-- Índices de tabela `alugueis`
 --
 ALTER TABLE `alugueis`
   ADD PRIMARY KEY (`id`),
@@ -226,107 +212,106 @@ ALTER TABLE `alugueis`
   ADD KEY `veiculo_id` (`veiculo_id`);
 
 --
--- Indexes for table `enderecos`
+-- Índices de tabela `enderecos`
 --
 ALTER TABLE `enderecos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`);
 
 --
--- Indexes for table `noticias`
+-- Índices de tabela `noticias`
 --
 ALTER TABLE `noticias`
   ADD PRIMARY KEY (`id`),
   ADD KEY `autor_id` (`autor_id`);
 
 --
--- Indexes for table `pagamentos`
+-- Índices de tabela `pagamentos`
 --
 ALTER TABLE `pagamentos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `aluguel_id` (`aluguel_id`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `cpf` (`cpf`),
-  ADD UNIQUE KEY `cnh` (`cnh`);
+  ADD UNIQUE KEY `cpf` (`cpf`);
 
 --
--- Indexes for table `veiculos`
+-- Índices de tabela `veiculos`
 --
 ALTER TABLE `veiculos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `placa` (`placa`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `alugueis`
+-- AUTO_INCREMENT de tabela `alugueis`
 --
 ALTER TABLE `alugueis`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `enderecos`
+-- AUTO_INCREMENT de tabela `enderecos`
 --
 ALTER TABLE `enderecos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `noticias`
+-- AUTO_INCREMENT de tabela `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `pagamentos`
+-- AUTO_INCREMENT de tabela `pagamentos`
 --
 ALTER TABLE `pagamentos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `veiculos`
+-- AUTO_INCREMENT de tabela `veiculos`
 --
 ALTER TABLE `veiculos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Constraints for dumped tables
+-- Restrições para tabelas despejadas
 --
 
 --
--- Constraints for table `alugueis`
+-- Restrições para tabelas `alugueis`
 --
 ALTER TABLE `alugueis`
   ADD CONSTRAINT `alugueis_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `alugueis_ibfk_2` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculos` (`id`);
 
 --
--- Constraints for table `enderecos`
+-- Restrições para tabelas `enderecos`
 --
 ALTER TABLE `enderecos`
   ADD CONSTRAINT `enderecos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `noticias`
+-- Restrições para tabelas `noticias`
 --
 ALTER TABLE `noticias`
   ADD CONSTRAINT `noticias_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `usuarios` (`id`);
 
 --
--- Constraints for table `pagamentos`
+-- Restrições para tabelas `pagamentos`
 --
 ALTER TABLE `pagamentos`
   ADD CONSTRAINT `pagamentos_ibfk_1` FOREIGN KEY (`aluguel_id`) REFERENCES `alugueis` (`id`) ON DELETE CASCADE;
