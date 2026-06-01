@@ -3,7 +3,8 @@
     class VeiculoModel {
 
         public static function listarVeiculos($pdo) {
-            return $pdo->query("SELECT * FROM veiculos")->fetchAll();
+            $busca = $pdo->query("SELECT * FROM veiculos");
+            return $busca->fetchAll();
         }
 
         public static function buscarVeiculoPorId($pdo, $id) {

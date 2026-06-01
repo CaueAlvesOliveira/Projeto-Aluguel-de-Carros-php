@@ -7,9 +7,20 @@
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
+CREATE DATABASE IF NOT EXISTS `aluguel-veiculos`
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
+
+USE `aluguel-veiculos`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+DROP USER IF EXISTS 'aluguel_user'@'localhost';
+CREATE USER 'aluguel_user'@'localhost' IDENTIFIED BY 'aluguel123';
+GRANT ALL PRIVILEGES ON `aluguel-veiculos`.* TO 'aluguel_user'@'localhost';
+FLUSH PRIVILEGES;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -188,16 +199,16 @@ CREATE TABLE `veiculos` (
 --
 
 INSERT INTO `veiculos` (`id`, `tipo`, `marca`, `modelo`, `ano`, `cor`, `placa`, `categoria`, `preco_diaria`, `disponivel`, `quilometragem`, `imagem`) VALUES
-(1, 'carro', 'Toyota', 'Corolla', 2022, 'Prata', 'BRA2E23', 'intermediario', 150.00, 1, 15000, 'corolla.jpg'),
-(2, 'carro', 'Honda', 'Civic', 2023, 'Preto', 'GHT3F45', 'intermediario', 170.00, 1, 8000, 'civic.jpg'),
-(3, 'carro', 'Volkswagen', 'T-Cross', 2022, 'Branco', 'MNO4G67', 'suv', 200.00, 1, 22000, 'tcross.jpg'),
-(4, 'carro', 'Chevrolet', 'Onix', 2023, 'Vermelho', 'PQR5H89', 'economico', 110.00, 1, 5000, 'onix.jpg'),
-(5, 'carro', 'Jeep', 'Compass', 2021, 'Cinza', 'STU6I01', 'suv', 250.00, 1, 35000, 'compass.jpg'),
-(6, 'moto', 'Honda', 'CB 500', 2022, 'Azul', 'VWX7J23', 'esportiva', 90.00, 1, 12000, 'cb500.jpg'),
-(7, 'moto', 'Yamaha', 'MT-07', 2023, 'Preto', 'YZA8K45', 'esportiva', 120.00, 1, 3000, 'mt07.jpg'),
-(8, 'moto', 'Honda', 'CG 160', 2021, 'Vermelho', 'BCD9L67', 'utilitaria', 60.00, 1, 28000, 'cg160.jpg'),
-(9, 'moto', 'Yamaha', 'Fazer 250', 2022, 'Prata', 'EFG0M89', 'utilitaria', 75.00, 1, 18000, 'fazer250.jpg'),
-(10, 'moto', 'Kawasaki', 'Ninja 400', 2023, 'Verde', 'HIJ1N01', 'esportiva', 140.00, 1, 1500, 'ninja400.jpg');
+(1, 'carro', 'Toyota', 'Corolla', 2022, 'Prata', 'BRA2E23', 'intermediario', 210.00, 1, 45000, 'corolla.png'),
+(2, 'carro', 'Honda', 'Civic', 2023, 'Prata', 'GHT3F45', 'intermediario', 220.00, 1, 30000, 'civic.png'),
+(3, 'carro', 'Volkswagen', 'T-Cross', 2022, 'Preto', 'MNO4G67', 'suv', 200.00, 1, 45000, 'tcross.png'),
+(4, 'carro', 'Chevrolet', 'Onix', 2023, 'Azul', 'PQR5H89', 'economico', 110.00, 1, 20000, 'onix.png'),
+(5, 'carro', 'Jeep', 'Compass', 2021, 'Branco', 'STU6I01', 'suv', 250.00, 1, 60000, 'compass.png'),
+(6, 'moto', 'Honda', 'CB 500', 2022, 'Preto', 'VWX7J23', 'esportiva', 180.00, 1, 24000, 'cb500.png'),
+(7, 'moto', 'Yamaha', 'MT-07', 2023, 'Preto', 'YZA8K45', 'esportiva', 230.00, 1, 15000, 'mt07.png'),
+(8, 'moto', 'Honda', 'CG 160', 2021, 'Branco, vermelho e azul', 'BCD9L67', 'utilitaria', 90.00, 1, 60000, 'cg160.png'),
+(9, 'moto', 'Yamaha', 'Fazer 250', 2022, 'Azul', 'EFG0M89', 'utilitaria', 110.00, 1, 30000, 'fazer250.png'),
+(10, 'moto', 'Kawasaki', 'Ninja 400', 2023, 'Preto', 'HIJ1N01', 'esportiva', 260.00, 1, 15000, 'ninja400.png');
 
 --
 -- Índices para tabelas despejadas
