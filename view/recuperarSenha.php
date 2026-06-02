@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include_once __DIR__ . '/header.php'; ?>
+<?php include_once __DIR__ . '/componentes/header.php'; ?>
 
 <main class="auth-page auth-recuperar">
     <section class="auth-card">
@@ -18,6 +18,14 @@
             <h1>Recuperar senha</h1>
             <p class="auth-subtitulo">Confirme seus dados para criar uma nova senha de acesso.</p>
         </div>
+
+        <?php if (!empty($mensagemErro)): ?>
+            <div class="auth-alert auth-alert-erro"><?= htmlspecialchars($mensagemErro) ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($mensagemSucesso)): ?>
+            <div class="auth-alert auth-alert-sucesso"><?= htmlspecialchars($mensagemSucesso) ?></div>
+        <?php endif; ?>
 
         <form method="post" class="auth-form">
             <label class="auth-campo">

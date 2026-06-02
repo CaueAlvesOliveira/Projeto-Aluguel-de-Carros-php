@@ -83,6 +83,26 @@ body {
     font-size: 0.95rem;
 }
 
+.auth-alert {
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.auth-alert-erro {
+    color: #b42318;
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+}
+
+.auth-alert-sucesso {
+    color: #05603a;
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+}
+
 .auth-form {
     display: flex;
     flex-direction: column;

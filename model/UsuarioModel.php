@@ -1,8 +1,29 @@
 <?php 
 
-    function addUsuario($usuario, $cpf, $dataNascimento, $email, $telefone, $senha){
+    function addUsuario($usuario, $cpf, $dataNascimento, $email, $telefone, $senha) {
         global $pdo;
-        $pdo->query("INSERT INTO usuarios (id, nome, cpf, data_nascimento, email, telefone, senha) VALUES (null, '$usuario', '$cpf', '$dataNascimento', '$email', '$telefone', '$senha');");
+        
+        try {
+            $stmt = $pdo->prepare("
+                INSERT INTO usuarios (id, nome, cpf, data_nascimento, email, telefone, senha)
+                VALUES (null, :nome, :cpf, :data_nascimento, :email, :telefone, :senha)
+            ");
+            
+            $stmt->execute([
+                ':nome'           => $usuario,
+                ':cpf'            => $cpf,
+                ':data_nascimento'=> $dataNascimento,
+                ':email'          => $email,
+                ':telefone'       => $telefone,
+                ':senha'          => $senha
+                ]);
+                
+                return true; 
+
+        } catch (PDOException $e) {
+            error_log("Erro ao inserir usuário: " . $e->getMessage());
+            return false; 
+        }
     }
 
     function recuperarSenha($cpf, $dataNascimento, $novaSenha){
@@ -15,8 +36,8 @@
             return true;
         } else {
             echo "Usuário não encontrado";
-        return false;
-    }
+            return false;
+        }
     }
 
     function fazerLogin($usuario, $senha){
@@ -32,11 +53,9 @@
                     $_SESSION['id'] = $usu->id;
                     return true;
                 } else {
-                    echo "ERRO - SENHA";
                     return false;
             }
         } else {
-              echo "ERRO - USUÁRIO";
               return false;
         }
     }
