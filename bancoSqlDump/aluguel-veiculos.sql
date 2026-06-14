@@ -210,6 +210,21 @@ INSERT INTO `veiculos` (`id`, `tipo`, `marca`, `modelo`, `ano`, `cor`, `placa`, 
 (9, 'moto', 'Yamaha', 'Fazer 250', 2022, 'Azul', 'EFG0M89', 'utilitaria', 110.00, 1, 30000, 'fazer250.png'),
 (10, 'moto', 'Kawasaki', 'Ninja 400', 2023, 'Preto', 'HIJ1N01', 'esportiva', 260.00, 1, 15000, 'ninja400.png');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `mensagens_contato`
+--
+
+CREATE TABLE mensagens_contato (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    assunto VARCHAR(150) NOT NULL,
+    mensagem TEXT NOT NULL,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 --
 -- Índices para tabelas despejadas
 --

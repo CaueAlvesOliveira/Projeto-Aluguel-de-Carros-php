@@ -27,6 +27,9 @@
     else if($url == 'sobre'){
         SobreNosController::exibirSobre();
     }
+    else if($url == 'contato') {
+        ContatoController::exibir($pdo);
+    }
     else if($url == "veiculos") {
         VeiculoController::catalogo($pdo);
     }
