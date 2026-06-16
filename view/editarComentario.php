@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="view/estilos/inicio.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="view/estilos/header.css">
 
 <div class="blog-container" style="margin-top: 60px;">
     <h2>Editar Comentário</h2>

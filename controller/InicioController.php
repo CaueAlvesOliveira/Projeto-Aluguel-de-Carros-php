@@ -68,7 +68,7 @@ class InicioController {
         }
 
         // Carrega a view de edição
-        include "./view/editar-comentario.php";
+        include "./view/editarComentario.php";
     }
 }
 ?>
