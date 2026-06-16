@@ -95,7 +95,7 @@
 
                 AluguelModel::inserirAluguel($pdo, $dados);
                 VeiculoModel::atualizarDisponibilidade($pdo, $id_veiculo, 0);
-                header('Location: ?p=meus-Alugueis');
+                header('Location: ?p=meus-alugueis');
                 exit;
                 
             } else {

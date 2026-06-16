@@ -90,8 +90,6 @@
 
                             <td class="td-acoes">
                                 <?php if (in_array($a->status, ['pendente', 'ativo'])): ?>
-
-                                    <!-- Botão Editar datas (abre modal) -->
                                     <button
                                         class="btn-acao editar"
                                         onclick="abrirModalEditar(
@@ -103,7 +101,6 @@
                                         title="Alterar datas"
                                     >✏️ Alterar</button>
 
-                                    <!-- Botão Devolver -->
                                     <form method="post" action="?p=devolver-aluguel"
                                           onsubmit="return confirm('Confirmar devolução do <?= htmlspecialchars($a->marca . ' ' . $a->modelo) ?>?')">
                                         <input type="hidden" name="csrf_token" value="<?= $token ?>">
@@ -113,7 +110,6 @@
                                         </button>
                                     </form>
 
-                                    <!-- Botão Cancelar -->
                                     <form method="post" action="?p=cancelar-aluguel"
                                           onsubmit="return confirm('Tem certeza que deseja cancelar este aluguel?')">
                                         <input type="hidden" name="csrf_token" value="<?= $token ?>">
@@ -136,7 +132,6 @@
     <?php endif; ?>
 </div>
 
-<!-- Modal de edição de datas -->
 <div class="modal-overlay" id="modal-editar">
     <div class="modal-caixa">
         <h2 class="modal-titulo">Alterar datas</h2>
@@ -177,7 +172,6 @@
         document.getElementById('modal-editar').classList.remove('aberto');
     }
 
-    // Fecha modal ao clicar fora da caixa
     document.getElementById('modal-editar').addEventListener('click', function(e) {
         if (e.target === this) fecharModal();
     });
